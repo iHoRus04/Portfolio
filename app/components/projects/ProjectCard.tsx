@@ -19,11 +19,11 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <div
-      className="sticky mb-24 sm:mb-32 last:mb-0"
+      className="relative lg:sticky mb-12 sm:mb-16 lg:mb-32 last:mb-0 lg:top-[var(--stack-top)]"
       style={{
-        top: `${topOffset}px`,
         zIndex: 10 + index,
-      }}
+        "--stack-top": `${topOffset}px`,
+      } as React.CSSProperties}
     >
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* THẺ DỰ ÁN ĐỒNG BỘ 100% VỚI EXPERIENCES (#0d0d10 & border-white/[0.12])*/}
@@ -156,8 +156,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               )}
             </div>
 
-            {/* THANH ĐÁY CỘT PHẢI: BRAND MARK ĐÁY PHẢI (TƯƠNG TỰ LOGO EKSPOSED TRONG ẢNH) */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+            {/* THANH ĐÁY CỘT PHẢI: BRAND MARK & ACTION BUTTONS */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10 lg:border-t-0 w-full">
               {/* Liên kết phụ: Landing Page & GitHub */}
               <div className="flex items-center gap-3">
                 {project.landingUrl && (

@@ -373,7 +373,7 @@ export default function InteractiveDottedGlobe() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-[420px] w-full max-w-[560px] mx-auto cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing sm:h-[500px] lg:h-[560px] select-none touch-pan-y"
+      className="relative flex h-[340px] w-full max-w-[560px] mx-auto cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing sm:h-[500px] lg:h-[560px] select-none touch-pan-y"
     >
       {/* Fallback for WebGL unavailable */}
       {!webGlSupported ? (

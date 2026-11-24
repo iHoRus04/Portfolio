@@ -107,7 +107,7 @@ export default function EducationCertifications() {
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="education-certifications"
-      className="relative scroll-mt-24 bg-[#000000] px-6 py-28 text-white sm:px-10 lg:px-16"
+      className="relative scroll-mt-24 bg-[#000000] px-5 py-20 text-white sm:px-10 sm:py-28 lg:px-16"
       aria-labelledby="edu-cert-title"
     >
       <div className="mx-auto max-w-6xl">
