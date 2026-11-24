@@ -369,10 +369,10 @@ export default function Hero() {
                 {/* Stat 1 */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-baseline md:justify-end gap-1 sm:gap-3.5 pb-1 sm:pb-2 md:border-b md:border-gray-300">
                   <span className="text-xl sm:text-4xl lg:text-6xl font-black text-[#ff2200] tracking-tight leading-none">
-                    1+
+                    1
                   </span>
                   <span className="text-[8px] sm:text-[10px] md:text-[11px] font-extrabold text-gray-400 tracking-[0.12em] sm:tracking-[0.18em] uppercase text-left leading-tight">
-                    YEARS
+                    YEAR
                     <br />
                     EXPERIENCE
                   </span>
