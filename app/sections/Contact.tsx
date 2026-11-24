@@ -28,7 +28,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-20 overflow-hidden bg-[#000000] px-5 py-20 pb-28 text-white sm:px-10 sm:py-28 lg:px-16"
+      className="relative scroll-mt-20 overflow-hidden bg-[#000000] px-6 py-28 text-white sm:px-10 lg:px-16"
       aria-labelledby="contact-title"
     >
       {/* Ambient Red Glow Highlights matching Skills & Projects */}

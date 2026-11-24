@@ -290,14 +290,11 @@ export default function InteractiveDottedGlobe() {
 
     // 9. Animation & Render Loop
     let animId: number;
-    const checkReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
-      // Handle natural momentum after release
+      // Handle natural momentum after release & continuous smooth slow auto-rotation
       if (!isPointerDownRef.current) {
         globeGroup.rotation.y += velocityRef.current.x;
         const targetX = globeGroup.rotation.x + velocityRef.current.y;
@@ -306,11 +303,8 @@ export default function InteractiveDottedGlobe() {
         velocityRef.current.x *= 0.94;
         velocityRef.current.y *= 0.94;
 
-        // Auto-rotation after 2.5s idle
-        const isIdle = Date.now() - lastInteractionTimeRef.current > 2500;
-        if (isIdle && !checkReducedMotion) {
-          globeGroup.rotation.y += 0.001;
-        }
+        // Continuous smooth and slow auto-rotation (luôn tự động xoay tròn chậm tự nhiên)
+        globeGroup.rotation.y += 0.0016;
       }
 
       renderer.render(scene, camera);
@@ -373,7 +367,7 @@ export default function InteractiveDottedGlobe() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-[340px] w-full max-w-[560px] mx-auto cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing sm:h-[500px] lg:h-[560px] select-none touch-pan-y"
+      className="relative flex h-[420px] w-full max-w-[560px] mx-auto cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing sm:h-[500px] lg:h-[560px] select-none touch-pan-y"
     >
       {/* Fallback for WebGL unavailable */}
       {!webGlSupported ? (

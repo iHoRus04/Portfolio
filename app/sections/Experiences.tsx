@@ -242,7 +242,7 @@ export default function Experiences() {
       {/* SECTION STICKY CỐ ĐỊNH TRỌN VẸN 1 MÀN HÌNH (100dvh) */}
       <section
         ref={containerRef}
-        className="sticky top-0 flex h-dvh max-h-screen w-full flex-col justify-between overflow-hidden bg-[#000000] text-white select-none pt-12 sm:pt-20 pb-16 sm:pb-5"
+        className="sticky top-0 flex h-dvh  max-h-screen w-full flex-col justify-between overflow-hidden bg-[#000000] text-white select-none pt-16 sm:pt-20 pb-4 sm:pb-5"
         aria-labelledby="timeline-heading"
       >
         {/* Vệt sáng ambient nền đồng bộ Dark Luxury / Red */}
@@ -252,7 +252,7 @@ export default function Experiences() {
         {/* ═════════════════════════════════════════════════════════════════ */}
         {/* HEADER SECTION: Đặt dưới Header toàn cục, gọn gàng trong viewport */}
         {/* ═════════════════════════════════════════════════════════════════ */}
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-4 sm:px-10 lg:px-14 flex items-center justify-between gap-4 shrink-0">
+        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-14 flex items-center justify-between gap-4 shrink-0">
           <div>
             <div className="flex items-center gap-2">
               <span className="h-[2px] w-6 sm:w-8 bg-[#bc0202] rounded-full shadow-[0_0_6px_rgba(188,2,2,0.8)]" />
@@ -263,220 +263,29 @@ export default function Experiences() {
             <ScrollRevealHeading>
               <h2
                 id="timeline-heading"
-                className="mt-0.5 text-lg sm:text-2xl lg:text-3xl font-extrabold uppercase tracking-tight text-white"
+                className="mt-1 text-xl sm:text-2xl lg:text-3xl font-extrabold uppercase tracking-tight text-white"
               >
                 Work <span className=" text-[#ff2200]">Experience</span>
               </h2>
             </ScrollRevealHeading>
-            {/* Role & Company tag on mobile so context is immediate */}
-            <div className="flex lg:hidden items-center gap-2 text-[11px] font-mono text-gray-300 pt-0.5">
-              <span className="font-bold text-white">Fullstack Intern</span>
-              <span className="text-gray-500">•</span>
-              <span className="text-[#ff2200] font-semibold">TechVanguard</span>
-            </div>
           </div>
 
           {/* Progress badge for 3-month internship */}
-          <div className="text-right">
-            <span className="block text-xs font-mono font-bold uppercase tracking-widest text-[#ff2200]">
+          <div className="hidden sm:block text-right">
+            <span className="block text-xs font-mono font-bold uppercase tracking-widest  text-[#ff2200]">
               MONTH 0{activeIndex + 1} / 0{TOTAL_MILESTONES}
             </span>
-            <span className="block text-[10px] sm:text-[11px] font-mono text-gray-400 mt-0.5">
-              {activeMilestone.monthBadge}
+            <span className="block text-[11px] font-mono text-gray-400 mt-0.5">
+              10/2025 – 01/2026 (3 Months)
             </span>
           </div>
         </div>
 
         {/* ═════════════════════════════════════════════════════════════════ */}
-        {/* MOBILE VIEW: ĐĨA QUAY NẰM DƯỚI TITLE, QUAY LÊN TRÊN HIỆN NỬA ĐĨA   */}
-        {/* CÁC THÔNG TIN CHI TIẾT ĐƯỢC ĐẶT TRỌN VẸN BÊN TRONG ĐĨA QUAY       */}
+        {/* KHUNG HIỂN THỊ CHÍNH (ĐĨA QUAY BÊN TRÁI + CHỮ LỚN BÊN PHẢI)         */}
+        {/* Chiếm trọn không gian giữa Header & Bottom Nav, không tràn màn hình*/}
         {/* ═════════════════════════════════════════════════════════════════ */}
-        <div className="relative z-10 flex lg:hidden w-full flex-1 min-h-0 flex-col justify-between px-3 sm:px-6 pt-1 pb-1">
-          {/* KHUNG ĐĨA QUAY MOBILE (Vòm cung nửa đĩa quay phía trên + Chi tiết bên trong) */}
-          <div
-            className="group relative flex flex-col justify-between w-full flex-1 rounded-[28px] sm:rounded-[36px] border border-white/12 bg-[#0d0d10] p-4 sm:p-5 shadow-[0_15px_45px_rgba(0,0,0,0.95)] overflow-hidden cursor-grab active:cursor-grabbing transition-shadow duration-300"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-          >
-            {/* Ảnh tư liệu duotone đỏ - đen nghệ thuật nền */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <Image
-                key={activeMilestone.id}
-                src={activeMilestone.image}
-                alt={activeMilestone.title}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-center grayscale contrast-125 brightness-[0.24] opacity-25 mix-blend-luminosity"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/85 to-black/95" />
-            </div>
-
-            {/* NỬA ĐĨA QUAY PHÍA TRÊN (Vòm cung đĩa xoay quay lên trên) */}
-            <div className="relative z-20 w-full pt-0.5 pb-2 border-b border-white/10 shrink-0">
-              <div className="relative w-full h-11 flex items-center justify-center">
-                <svg
-                  className="w-full h-full select-none"
-                  viewBox="0 0 320 52"
-                  preserveAspectRatio="xMidYMid meet"
-                  aria-hidden="true"
-                >
-                  {/* Đường cong cung đĩa kép */}
-                  <path
-                    d="M 18 46 Q 160 8 302 46"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.12)"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M 28 50 Q 160 16 292 50"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.05)"
-                    strokeWidth="1"
-                  />
-
-                  {/* Vạch chia độ dọc cung đĩa */}
-                  {Array.from({ length: 25 }).map((_, i) => {
-                    const t = i / 24;
-                    const x = (1 - t) * (1 - t) * 18 + 2 * (1 - t) * t * 160 + t * t * 302;
-                    const y = (1 - t) * (1 - t) * 46 + 2 * (1 - t) * t * 8 + t * t * 46;
-                    const isMajor = i % 6 === 0;
-                    const isMid = i % 3 === 0;
-                    const len = isMajor ? 8 : isMid ? 5 : 3;
-                    return (
-                      <line
-                        key={i}
-                        x1={x}
-                        y1={y}
-                        x2={x}
-                        y2={y - len}
-                        stroke={isMajor ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.12)"}
-                        strokeWidth={isMajor ? 1.5 : 1}
-                      />
-                    );
-                  })}
-
-                  {/* 3 Mốc tháng đặt trên nửa đĩa quay (t = 0.15, t = 0.5, t = 0.85) */}
-                  {timelineMilestones.map((m, idx) => {
-                    const t = idx === 0 ? 0.15 : idx === 1 ? 0.5 : 0.85;
-                    const x = (1 - t) * (1 - t) * 18 + 2 * (1 - t) * t * 160 + t * t * 302;
-                    const y = (1 - t) * (1 - t) * 46 + 2 * (1 - t) * t * 8 + t * t * 46;
-                    const isActive = idx === activeIndex;
-
-                    return (
-                      <g
-                        key={m.id}
-                        className="cursor-pointer pointer-events-auto"
-                        onClick={() => scrollToMilestone(idx)}
-                      >
-                        {isActive && (
-                          <circle
-                            cx={x}
-                            cy={y}
-                            r={8}
-                            fill="rgba(255,0,0,0.25)"
-                            className="animate-ping"
-                          />
-                        )}
-                        <circle
-                          cx={x}
-                          cy={y}
-                          r={isActive ? 4.5 : 3}
-                          fill={isActive ? "#ff0000" : "rgba(255,255,255,0.35)"}
-                          stroke={isActive ? "#ffffff" : "transparent"}
-                          strokeWidth={isActive ? 1.5 : 0}
-                        />
-                        <text
-                          x={x}
-                          y={y - 10}
-                          textAnchor="middle"
-                          fill={isActive ? "#ff2200" : "rgba(255,255,255,0.55)"}
-                          fontSize={isActive ? "10" : "8"}
-                          fontWeight={isActive ? "800" : "600"}
-                          fontFamily="monospace"
-                        >
-                          {m.monthBadge}
-                        </text>
-                      </g>
-                    );
-                  })}
-                </svg>
-              </div>
-
-              {/* Nhãn giai đoạn & thời gian */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 px-1 pt-0.5">
-                <span className="text-[#ff2200] font-bold uppercase tracking-wider">
-                  {activeMilestone.stageBadge}
-                </span>
-                <span className="text-gray-400 font-medium">
-                  {activeMilestone.year}
-                </span>
-              </div>
-            </div>
-
-            {/* NỘI DUNG CHI TIẾT TRỌN VẸN BÊN TRONG ĐĨA QUAY */}
-            <div className="relative z-10 flex-1 flex flex-col justify-between py-1.5 space-y-2">
-              {/* Tiêu đề & Subtitle */}
-              <div className="space-y-0.5">
-                <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight leading-snug line-clamp-2">
-                  {activeMilestone.title}
-                </h4>
-                <p className="text-[11px] font-semibold text-gray-400">
-                  {activeMilestone.subtitle}
-                </p>
-              </div>
-
-              {/* Mô tả kỹ thuật */}
-              <p className="text-[11px] text-gray-300 leading-relaxed line-clamp-2">
-                {activeMilestone.description}
-              </p>
-
-              {/* Monthly Key Focus (3 bullets) */}
-              <div className="space-y-1 pt-0.5 border-t border-white/5">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400">
-                  Monthly Key Focus:
-                </span>
-                <ul className="space-y-1 text-[10px] text-gray-300">
-                  {activeMilestone.highlights.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5">
-                      <CheckCircle2 className="h-3 w-3 text-[#ff0000] shrink-0 mt-0.5" strokeWidth={2.2} />
-                      <span className="leading-tight line-clamp-1">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* 2 Chỉ số nổi bật & Tags */}
-              <div className="flex items-center justify-between gap-3 pt-1 border-t border-white/10">
-                <div className="flex items-center gap-4">
-                  {activeMilestone.metrics.map((metric, idx) => (
-                    <div key={idx} className="space-y-0.5">
-                      <span className="block text-base sm:text-lg font-black tracking-tight text-white leading-none">
-                        {metric.value}
-                      </span>
-                      <span className="block text-[8px] font-bold uppercase tracking-wider text-gray-400">
-                        {metric.label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-1 justify-end">
-                  {activeMilestone.tags.slice(0, 2).map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ═════════════════════════════════════════════════════════════════ */}
-        {/* DESKTOP VIEW: KHUNG HIỂN THỊ CHÍNH (ĐĨA QUAY TO TRÁI + CHỮ PHẢI)    */}
-        {/* ═════════════════════════════════════════════════════════════════ */}
-        <div className="relative z-10 my-auto hidden lg:flex w-full flex-1 min-h-0 flex-row items-center justify-between">
+        <div className="relative z-10 my-auto flex w-full flex-1 min-h-0 flex-col lg:flex-row items-center justify-between">
           {/* ========================================================= */}
           {/* CỘT TRÁI: ĐĨA QUAY MỞ RỘNG HƠN 1 NỬA MÀN HÌNH (~56% WIDTH) */}
           {/* ========================================================= */}
@@ -708,10 +517,10 @@ export default function Experiences() {
               </div>
 
               {/* CHỮ LỚN VỀ VỊ TRÍ (HUGE EDITORIAL POSITION / ROLE TYPOGRAPHY) */}
-              <div className="space-y-1.5 sm:space-y-2">
+              <div className="space-y-2">
                 <h3
                   key={`role-${activeMilestone.id}`}
-                  className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight text-white leading-tight sm:leading-[0.92] select-none transition-all duration-500 animate-in fade-in slide-in-from-bottom-4"
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight text-white leading-[0.92] select-none transition-all duration-500 animate-in fade-in slide-in-from-bottom-4"
                 >
                   {activeMilestone.role}
                 </h3>
@@ -720,10 +529,10 @@ export default function Experiences() {
               {/* CÔNG TY TECHVANGUARD CO., LTD. & THỜI GIAN THỰC TẬP */}
               <div
                 key={`company-${activeMilestone.id}`}
-                className="space-y-2.5 sm:space-y-3 pt-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-2"
+                className="space-y-3 pt-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-2"
               >
-                <div className="flex items-center gap-2 text-lg sm:text-2xl lg:text-3xl font-extrabold text-white/95">
-                  <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-[#ff2200] shrink-0" strokeWidth={2} />
+                <div className="flex items-center gap-2.5 text-xl sm:text-2xl lg:text-3xl font-extrabold text-white/95">
+                  <Building2 className="h-6 w-6  text-[#ff2200] shrink-0" strokeWidth={2} />
                   <span>{activeMilestone.company}</span>
                 </div>
 
@@ -751,7 +560,7 @@ export default function Experiences() {
         {/* ═════════════════════════════════════════════════════════════════ */}
         {/* THANH NAVIGATION BÊN DƯỚI: TỐI GIẢN & HIỆN ĐẠI (MINIMALIST PILL) */}
         {/* ═════════════════════════════════════════════════════════════════ */}
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-4 sm:px-10 lg:px-14 flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2 sm:pt-3 border-t border-white/5 shrink-0 pb-16 sm:pb-0">
+        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-14 flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-white/5 shrink-0">
           {/* Timeline progress indicator */}
           <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
             <span className="text-gray-400">Timeline Progress {Math.round(scrollProgress * 100)}%</span>

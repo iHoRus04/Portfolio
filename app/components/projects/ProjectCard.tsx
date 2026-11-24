@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Badge from "@/app/components/ui/Badge";
 import { Project } from "@/app/data/projects";
@@ -10,26 +13,59 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  // Khoảng cách cuộn dồn thẻ (Sticky Stacking offset):
-  // Thẻ 01 ghim ở 84px, Thẻ 02 ghim ở 120px (để lộ 36px tab trên cùng của thẻ 01)
-  const topOffset = 84 + index * 36;
+  const cardRef = useRef<HTMLDivElement>(null);
+  // Desktop: Thẻ 01 ghim ở 84px, Thẻ 02 ghim ở 120px (để lộ 36px tab trên cùng của thẻ 01)
+  const defaultDesktopTop = 84 + index * 36;
+  const [stickyTop, setStickyTop] = useState(defaultDesktopTop);
+
+  useEffect(() => {
+    const updateOffset = () => {
+      if (typeof window === "undefined") return;
+      const isMobile = window.innerWidth < 1024;
+      if (!isMobile) {
+        setStickyTop(defaultDesktopTop);
+        return;
+      }
+
+      const vh = window.innerHeight;
+      const h = cardRef.current ? cardRef.current.offsetHeight : 680;
+      // Khoảng cách an toàn phía dưới (chừa 76px cho floating bottom capsule navigation trên mobile)
+      const bottomSafe = 76;
+
+      // Đảm bảo Project 1 cuộn lên cho đến khi toàn bộ đáy card (hình ảnh, nút link) hiện trọn vẹn trong khung hình
+      // rồi mới ghim (sticky) để Project 2 mới bắt đầu chồng lên mà không che mất bất kỳ thành phần nào
+      const maxAllowedTop = vh - h - bottomSafe;
+      const mobileTop = Math.min(60 + index * 16, maxAllowedTop);
+      setStickyTop(mobileTop);
+    };
+
+    updateOffset();
+    const timer = setTimeout(updateOffset, 150);
+    window.addEventListener("resize", updateOffset);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateOffset);
+    };
+  }, [defaultDesktopTop, index]);
+
   const displayUrl = project.demoUrl
     ? project.demoUrl.replace("https://", "")
     : `${project.id}.internal.app`;
 
   return (
     <div
-      className="relative lg:sticky mb-12 sm:mb-16 lg:mb-32 last:mb-0 lg:top-[var(--stack-top)]"
+      ref={cardRef}
+      className="sticky mb-32 sm:mb-40 lg:mb-32 last:mb-0 transition-[top] duration-150"
       style={{
+        top: `${stickyTop}px`,
         zIndex: 10 + index,
-        "--stack-top": `${topOffset}px`,
-      } as React.CSSProperties}
+      }}
     >
       {/* ═════════════════════════════════════════════════════════════════ */}
       {/* THẺ DỰ ÁN ĐỒNG BỘ 100% VỚI EXPERIENCES (#0d0d10 & border-white/[0.12])*/}
       {/* Nền đen tuyền sang trọng, hiệu ứng hover chuẩn glass như nút phụ  */}
       {/* ═════════════════════════════════════════════════════════════════ */}
-      <div className="group relative overflow-hidden rounded-[32px] sm:rounded-[40px] border border-white/[0.12] bg-[#0d0d10] p-6 sm:p-8 lg:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.95)] interactive-glass-card">
+      <div className="group relative overflow-hidden rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] border border-white/[0.12] bg-[#0d0d10] p-5 sm:p-8 lg:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.95)] interactive-glass-card">
         {/* Điểm nhấn vệt sáng đỏ nhẹ nhàng góc thẻ đồng bộ */}
         <div className="pointer-events-none absolute -right-20 -bottom-20 h-[300px] w-[300px] rounded-full bg-[#830000]/15 transition-opacity duration-300 group-hover:opacity-100" />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/[0.015] via-transparent to-red-950/[0.02]" />
@@ -37,7 +73,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* HÀNG TRÊN CÙNG: CATEGORY, PROJECT NUMBER & DEPLOYMENT STATUS  */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5 mb-7">
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 sm:gap-4 border-b border-white/10 pb-4 sm:pb-5 mb-5 sm:mb-7">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs font-black tracking-widest text-[#ff0000]">
               PROJ.{project.number}
@@ -156,8 +192,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               )}
             </div>
 
-            {/* THANH ĐÁY CỘT PHẢI: BRAND MARK & ACTION BUTTONS */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10 lg:border-t-0 w-full">
+            {/* THANH ĐÁY CỘT PHẢI: BRAND MARK ĐÁY PHẢI (TƯƠNG TỰ LOGO EKSPOSED TRONG ẢNH) */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
               {/* Liên kết phụ: Landing Page & GitHub */}
               <div className="flex items-center gap-3">
                 {project.landingUrl && (
