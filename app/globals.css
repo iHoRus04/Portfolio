@@ -1,41 +1,398 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --brand-black: #000000;
+  --brand-maroon: #830000;
+  --brand-red: #bc0202;
+  --brand-bright-red: #ff0000;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-black: #000000;
+  --color-brand-maroon: #830000;
+  --color-brand-red: #bc0202;
+  --color-brand-bright-red: #ff0000;
+  --font-sans: var(--font-vietnam-sans), "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer components {
-  .btn-primary{
-    @apply bg-blue-700 p-2 rounded-full text-white hover:bg-blue-500  duration-300 ;
-  }
-  .focus-ring {
-    @apply focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-2;
-  
-  }
-  .sections-2 {
-    @apply flex flex-col md:flex-row mx-auto w-full max-w-7xl md:min-h-[90vh] py-20 px-4 justify-center items-center gap-4
+  .btn-primary {
+    @apply bg-[#bc0202] p-2 rounded-full text-white hover:bg-[#ff0000] duration-300;
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     Global Gradient Hover Buttons (Signature Luxury Red System)
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Primary Action Button (Red Base -> Dynamic Fiery Gradient Hover) */
+  .btn-gradient-primary {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 1px solid rgba(188, 2, 2, 0.6);
+    background: #bc0202;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    isolation: isolate;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(188, 2, 2, 0.35);
+  }
+
+  .btn-gradient-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to right, #830000, #bc0202, #ff0000);
+    opacity: 0;
+    transition: opacity 0.45s ease-out;
+    z-index: -1;
+  }
+
+  .btn-gradient-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.28), transparent);
+    transform: skewX(-15deg);
+    transition: transform 0.75s ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .btn-gradient-primary:hover {
+    border-color: rgba(255, 0, 0, 0.85);
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.65);
+    color: #ffffff;
+  }
+
+  .btn-gradient-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-gradient-primary:hover::after {
+    transform: translateX(250%) skewX(-15deg);
+  }
+
+  .btn-gradient-primary:active {
+    transform: scale(0.96);
+  }
+
+  /* Secondary Action Button (Minimal Dark Glass - Elegant Contrast without red distraction) */
+  .btn-gradient-secondary {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #e4e4e7;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    isolation: isolate;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-gradient-secondary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    z-index: -1;
+  }
+
+  .btn-gradient-secondary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-15deg);
+    transition: transform 0.65s ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .btn-gradient-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: scale(1.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  .btn-gradient-secondary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-gradient-secondary:hover::after {
+    transform: translateX(250%) skewX(-15deg);
+  }
+
+  .btn-gradient-secondary:active {
+    transform: scale(0.96);
+  }
+
+  /* Interactive Luxury Glass Card (mirrors btn-gradient-secondary hover aesthetics) */
+  .interactive-glass-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .interactive-glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.03);
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .interactive-glass-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 60%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.12), transparent);
+    transform: skewX(-18deg);
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .interactive-glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.38) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .interactive-glass-card:hover::before {
+    opacity: 1;
+  }
+
+  .interactive-glass-card:hover::after {
+    transform: translateX(350%) skewX(-18deg);
+  }
+
+  /* Interactive Luxury Glass Item (mirrors secondary button hover for skill items and compact pills) */
+  .interactive-glass-item {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0e0e12;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .interactive-glass-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .interactive-glass-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.22), transparent);
+    transform: skewX(-18deg);
+    transition: transform 0.65s ease-out;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .interactive-glass-item:hover {
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    background: #141419 !important;
+  }
+
+  .interactive-glass-item:hover::before {
+    opacity: 1;
+  }
+
+  .interactive-glass-item:hover::after {
+    transform: translateX(250%) skewX(-18deg);
+  }
+
+  /* Rhythmic Sine Wave Undulation for Tech Skills (GPU Hardware Accelerated) */
+  @keyframes waveUndulation {
+    0%, 100% {
+      transform: translate3d(0, 0px, 0);
+    }
+    50% {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+
+  .animate-wave-float {
+    animation: waveUndulation 3.6s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-wave-float:hover {
+    animation-play-state: paused;
+  }
+
+  /* Kinetic Text Shimmer Beam on Scroll Reveal (Pure White/Silver, no red tint) */
+  @keyframes textShimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .text-shimmer-active {
+    background: linear-gradient(
+      115deg,
+      #ffffff 0%,
+      #ffffff 40%,
+      #e4e4e7 50%,
+      #ffffff 60%,
+      #ffffff 100%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer 2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s 1 forwards;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-2 focus-visible:outline-[#bc0202] focus-visible:outline-offset-2;
+  }
+
+  .sections-2 {
+    @apply flex flex-col md:flex-row mx-auto w-full max-w-7xl md:min-h-[90vh] py-20 px-4 justify-center items-center gap-4;
+  }
+
+  .animate-bell-ring {
+    transform-origin: top center;
+    animation: bell-ring 2.5s ease-in-out infinite;
+  }
+
+  .animate-btn-ring {
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+}
+
+@keyframes bell-ring {
+
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  5%,
+  15%,
+  25% {
+    transform: rotate(18deg);
+  }
+
+  10%,
+  20%,
+  30% {
+    transform: rotate(-18deg);
+  }
+
+  35% {
+    transform: rotate(8deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  45% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-ring {
+
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  2%,
+  6%,
+  10% {
+    transform: rotate(2deg);
+  }
+
+  4%,
+  8% {
+    transform: rotate(-2deg);
+  }
+
+  12% {
+    transform: rotate(0deg);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  
+  font-family: var(--font-vietnam-sans), "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
